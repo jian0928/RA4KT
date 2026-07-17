@@ -1,0 +1,272 @@
+# ============================================================
+# RA4KT Configuration
+# Causal Explainable Reverse Attribution Framework
+# for Knowledge Tracing
+# ============================================================
+
+
+# ------------------------------------------------------------
+# Dataset Configuration
+# ------------------------------------------------------------
+
+dataset:
+
+  name: XES3G5M
+
+  data_path:
+    data/processed/xes3g5m.pkl
+
+  kc_graph_path:
+    data/kc_graph/xes3g5m_graph.pkl
+
+
+  # number of knowledge concepts
+
+  num_kcs: 1175
+
+
+  # maximum interaction sequence length
+
+  max_seq_len: 50
+
+
+
+# ------------------------------------------------------------
+# Data Split Configuration
+# ------------------------------------------------------------
+
+split:
+
+  train_ratio: 0.8
+
+  valid_ratio: 0.1
+
+  test_ratio: 0.1
+
+
+  random_seed: 42
+
+
+
+# ------------------------------------------------------------
+# Backbone Knowledge Tracing Model
+# ------------------------------------------------------------
+
+backbone:
+
+  name: DKT
+
+
+  embedding_dim: 128
+
+
+  hidden_dim: 128
+
+
+  num_layers: 1
+
+
+  dropout: 0.2
+
+
+
+# ------------------------------------------------------------
+# RA4KT Reverse Attribution Configuration
+# ------------------------------------------------------------
+
+ra4kt:
+
+
+  # number of optimization iterations
+  # for counterfactual attribution generation
+
+  max_iterations: 200
+
+
+
+  # learning rate for attribution optimization
+
+  attribution_lr: 0.01
+
+
+
+  # stopping threshold
+
+  convergence_threshold: 0.0001
+
+
+
+  # target prediction confidence
+
+  target_prediction_threshold: 0.9
+
+
+
+  # attribution sparsity constraint
+
+  sparsity_weight: 0.01
+
+
+
+  # maximum number of modified interactions
+
+  max_edit_steps: 5
+
+
+
+# ------------------------------------------------------------
+# Multi-objective Optimization
+# ------------------------------------------------------------
+
+loss:
+
+
+  # prediction consistency loss
+
+  lambda_cons: 0.1
+
+
+
+  # knowledge concept coherence loss
+
+  lambda_coh: 0.001
+
+
+
+  # total objective:
+
+  # L =
+  # L_pred
+  # + lambda_cons * L_cons
+  # + lambda_coh * L_coh
+
+
+
+# ------------------------------------------------------------
+# TSPP (Teaching Sequence Path Planning)
+# ------------------------------------------------------------
+
+tspp:
+
+
+  enable: true
+
+
+  graph_algorithm:
+
+    name: dijkstra
+
+
+  # maximum recommended concept length
+
+  max_path_length: 10
+
+
+
+  # path diversity
+
+  beam_size: 5
+
+
+
+# ------------------------------------------------------------
+# Training Configuration
+# ------------------------------------------------------------
+
+train:
+
+
+  epochs: 100
+
+
+  batch_size: 64
+
+
+  optimizer: Adam
+
+
+  learning_rate: 0.001
+
+
+  weight_decay: 0.00001
+
+
+  grad_clip: 5.0
+
+
+
+  early_stopping:
+
+    enable: true
+
+    patience: 10
+
+
+
+# ------------------------------------------------------------
+# Evaluation Configuration
+# ------------------------------------------------------------
+
+evaluation:
+
+
+  metrics:
+
+    - AUC
+
+    - ACC
+
+    - RMSE
+
+
+
+  attribution_metrics:
+
+    - validity
+
+    - sparsity
+
+    - interpretability
+
+    - coherence
+
+
+
+# ------------------------------------------------------------
+# Runtime Configuration
+# ------------------------------------------------------------
+
+runtime:
+
+
+  device: cuda
+
+
+  num_workers: 4
+
+
+  seed: 42
+
+
+
+# ------------------------------------------------------------
+# Output Configuration
+# ------------------------------------------------------------
+
+output:
+
+
+  checkpoint_dir:
+
+    checkpoints/ra4kt/
+
+
+  result_dir:
+
+    results/ra4kt/
+
+
+  save_attributions: true
+
+
+  save_tspp_paths: true

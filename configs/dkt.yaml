@@ -1,0 +1,95 @@
+# ============================================================
+# DKT Configuration
+# Configuration file for Deep Knowledge Tracing baseline
+# Used in RA4KT experiments
+# ============================================================
+
+
+# Dataset configuration
+dataset:
+  name: XES3G5M
+  data_path: data/processed/xes3g5m.pkl
+
+  # maximum interaction sequence length
+  max_seq_len: 50
+
+  # number of knowledge concepts
+  num_kcs: 1175
+
+
+# Data split configuration
+split:
+  train_ratio: 0.8
+  valid_ratio: 0.1
+  test_ratio: 0.1
+
+  random_seed: 42
+
+
+# Model configuration
+model:
+
+  name: DKT
+
+  # embedding dimension
+  embedding_dim: 128
+
+  # hidden size of LSTM
+  hidden_dim: 128
+
+  # number of recurrent layers
+  num_layers: 1
+
+  dropout: 0.2
+
+
+# Training configuration
+train:
+
+  epochs: 100
+
+  batch_size: 64
+
+  optimizer: Adam
+
+  learning_rate: 0.001
+
+  weight_decay: 0.00001
+
+
+  # gradient clipping
+  grad_clip: 5.0
+
+
+  # early stopping
+  early_stopping: true
+
+  patience: 10
+
+
+# Evaluation configuration
+evaluation:
+
+  metrics:
+
+    - AUC
+    - ACC
+    - RMSE
+
+
+# Runtime configuration
+runtime:
+
+  device: cuda
+
+  num_workers: 4
+
+  seed: 42
+
+
+# Output configuration
+output:
+
+  checkpoint_dir: checkpoints/dkt/
+
+  result_dir: results/dkt/
