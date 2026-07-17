@@ -7,6 +7,13 @@ The output directly maps to a set of knowledge concepts (KCs) that students need
 
 Due to the intellectual property protection agreement of the author's institution, all model parameters and specific details will not be made public until the paper is officially published.
 
+## Version
+
+This repository corresponds to the experiments reported in the IEEE Access manuscript.
+
+Release version:
+RA4KT-v1.0
+
 ## Core Design Principles
 
 RA4KT strictly follows the 5 core properties of high-quality reverse attribution for KT defined in the paper:
